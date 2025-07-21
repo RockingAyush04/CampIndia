@@ -10,12 +10,16 @@ const methodOverride=require('method-override');
 const Campground=require('./models/campground');
 // const campground = require('./models/campground');
 
-mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp')
+// Use environment variable for MongoDB connection or fallback to local
+const dbUrl = process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/yelp-camp';
+
+mongoose.connect(dbUrl)
 .then(()=>{
-    console.log("connected to database");
+    console.log("Connected to database:", dbUrl.includes('mongodb.net') ? 'MongoDB Atlas' : 'Local MongoDB');
 })
 .catch(err => {
     console.log("Error connecting to database", err);
+    console.log("Make sure MongoDB is running locally or set MONGODB_URI environment variable");
 })
 
 const app=express();
@@ -130,7 +134,7 @@ app.use((err,req,res,next)=>{
     
 })
 
-
-app.listen(3000,()=>{
-    console.log("SERVING PORT 3000");
+const port = process.env.PORT || 3000;
+app.listen(port,()=>{
+    console.log(`SERVING PORT ${port}`);
 })

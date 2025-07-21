@@ -31,9 +31,11 @@ CampIndia is a full-stack web application that helps camping enthusiasts discove
 ## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js (v14 or higher)
-- MongoDB (Local installation or MongoDB Atlas)
-- Git
+- **Node.js** (v14 or higher) - [Download here](https://nodejs.org/)
+- **MongoDB** - Choose one option:
+  - **Option A**: [MongoDB Community Server](https://www.mongodb.com/try/download/community) (Local installation)
+  - **Option B**: [MongoDB Atlas](https://www.mongodb.com/atlas) (Free cloud database)
+- **Git** - [Download here](https://git-scm.com/)
 
 ### Installation
 
@@ -49,10 +51,20 @@ CampIndia is a full-stack web application that helps camping enthusiasts discove
    ```
 
 3. **Set up your database**
-   - For local MongoDB: Make sure MongoDB is running on `mongodb://127.0.0.1:27017`
-   - For MongoDB Atlas: Update the connection string in `app.js`
+   
+   **Option A: Local MongoDB**
+   - Install and start MongoDB on your system
+   - The app will automatically connect to `mongodb://127.0.0.1:27017/yelp-camp`
+   
+   **Option B: MongoDB Atlas (Recommended)**
+   - Create a free account at [MongoDB Atlas](https://www.mongodb.com/atlas)
+   - Create a new cluster and get your connection string
+   - Create a `.env` file in the root directory:
+     ```env
+     MONGODB_URI=mongodb+srv://username:password@cluster.mongodb.net/campindia
+     ```
 
-4. **Seed the database (optional)**
+4. **Seed the database (optional but recommended)**
    ```bash
    node seeds/index.js
    ```
@@ -66,6 +78,13 @@ CampIndia is a full-stack web application that helps camping enthusiasts discove
    ```
    http://localhost:3000
    ```
+
+### 🚨 Troubleshooting
+
+**Database Connection Issues:**
+- **Local MongoDB**: Make sure MongoDB service is running
+- **MongoDB Atlas**: Check your connection string and network access settings
+- **Firewall**: Ensure port 27017 (local) or 443 (Atlas) is not blocked
 
 ## 📁 Project Structure
 
