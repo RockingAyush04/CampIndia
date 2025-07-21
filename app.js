@@ -2,7 +2,8 @@ const express=require('express');
 const mongoose=require('mongoose');
 const path =require('path');
 const ejsMate= require('ejs-mate');
-const Joi=require('joi');
+//const Joi=require('joi');
+const {campgroundSchema}=require('./schemas.js');
 const catchAsync=require('./utils/catchAsync');
 const ExpressError=require('./utils/ExpressError');
 const methodOverride=require('method-override');
@@ -28,15 +29,17 @@ app.use(methodOverride('_method'));
 
 //JOI VALIDATION MIDDLEWARE
 const validateCampground = (req,res,next)=>{
-    const campgroundSchema= Joi.object({
-        campground:Joi.object({
-            title: Joi.string().required(),
-            price: Joi.number().required().min(0),
-            image:Joi.string().required(),
-            location:Joi.string().required(),
-            image:Joi.string().required(),
-        }).required()
-    })
+    // const campgroundSchema= Joi.object({
+    //     campground:Joi.object({
+    //         title: Joi.string().required(),
+    //         price: Joi.number().required().min(0),
+    //         image:Joi.string().required(),
+    //         location:Joi.string().required(),
+    //         image:Joi.string().required(),
+    //     }).required()
+    // });  //moved to schemas.js
+
+    
     // const result=campgroundSchema.validate(req.body);
     // if (result.error){
     //     throw new ExpressError(result.error.details[0].message,400);
@@ -46,7 +49,7 @@ const validateCampground = (req,res,next)=>{
         const msg=error.details.map(el=>el.message).join(',');
         throw new ExpressError(msg,400);
     }else{
-        next();
+        next(); //important to go to the actual request in case everythign correct
     }
 }
 
